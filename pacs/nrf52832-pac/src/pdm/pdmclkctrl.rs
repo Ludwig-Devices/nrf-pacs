@@ -36,16 +36,22 @@ impl From<crate::W<PDMCLKCTRL_SPEC>> for W {
 }
 #[doc = "Field `FREQ` reader - PDM_CLK frequency"]
 pub type FREQ_R = crate::FieldReader<u32, FREQ_A>;
-#[doc = "PDM_CLK frequency\n\nValue on reset: 138412032"]
+#[doc = "PDM_CLK frequency\n\nValue on reset: 0x08400000"]
 #[derive(Clone, Copy, Debug, PartialEq)]
 #[repr(u32)]
 pub enum FREQ_A {
-    #[doc = "134217728: PDM_CLK = 32 MHz / 32 = 1.000 MHz"]
-    _1000K = 134217728,
-    #[doc = "138412032: PDM_CLK = 32 MHz / 31 = 1.032 MHz"]
-    DEFAULT = 138412032,
-    #[doc = "142606336: PDM_CLK = 32 MHz / 30 = 1.067 MHz"]
-    _1067K = 142606336,
+    #[doc = "0x08000000: PDM_CLK = 1.000 MHz -> Sample rate = 15625.0 Hz"]
+    _1000K = 0x08000000,
+    #[doc = "0x08400000: PDM_CLK = 1.031 MHz -> Sample rate = 16113.3 Hz"]
+    DEFAULT = 0x08400000,
+    #[doc = "0x08800000: PDM_CLK = 1.063 MHz -> Sample rate = 16601.6 Hz"]
+    _1067K = 0x08800000,
+    #[doc = "0x0C000000: PDM_CLK = 1.500 MHz -> Sample rate = 23437.5 Hz"]
+    _1500K = 0x0C000000,
+    #[doc = "0x10000000: PDM_CLK = 2.000 MHz -> Sample rate = 31250.0 Hz"]
+    _2000K = 0x10000000,
+    #[doc = "0x20000000: PDM_CLK = 4.000 MHz -> Sample rate = 62500.0 Hz"]
+    _4000K = 0x20000000,
 }
 impl From<FREQ_A> for u32 {
     #[inline(always)]
@@ -58,9 +64,12 @@ impl FREQ_R {
     #[inline(always)]
     pub fn variant(&self) -> Option<FREQ_A> {
         match self.bits {
-            134217728 => Some(FREQ_A::_1000K),
-            138412032 => Some(FREQ_A::DEFAULT),
-            142606336 => Some(FREQ_A::_1067K),
+            0x08000000 => Some(FREQ_A::_1000K),
+            0x08400000 => Some(FREQ_A::DEFAULT),
+            0x08800000 => Some(FREQ_A::_1067K),
+            0x0C000000 => Some(FREQ_A::_1500K),
+            0x10000000 => Some(FREQ_A::_2000K),
+            0x20000000 => Some(FREQ_A::_4000K),
             _ => None,
         }
     }
@@ -79,24 +88,54 @@ impl FREQ_R {
     pub fn is_1067k(&self) -> bool {
         *self == FREQ_A::_1067K
     }
+    #[doc = "Checks if the value of the field is `_1500K`"]
+    #[inline(always)]
+    pub fn is_1532k(&self) -> bool {
+        *self == FREQ_A::_1500K
+    }
+    #[doc = "Checks if the value of the field is `_2000K`"]
+    #[inline(always)]
+    pub fn is_2000k(&self) -> bool {
+        *self == FREQ_A::_2000K
+    }
+    #[doc = "Checks if the value of the field is `_4000K`"]
+    #[inline(always)]
+    pub fn is_4000k(&self) -> bool {
+        *self == FREQ_A::_4000K
+    }
 }
 #[doc = "Field `FREQ` writer - PDM_CLK frequency"]
 pub type FREQ_W<'a, const O: u8> = crate::FieldWriter<'a, u32, PDMCLKCTRL_SPEC, u32, FREQ_A, 32, O>;
 impl<'a, const O: u8> FREQ_W<'a, O> {
-    #[doc = "PDM_CLK = 32 MHz / 32 = 1.000 MHz"]
+    #[doc = "PDM_CLK = 1.000 MHz -> Sample rate = 15625.0 Hz"]
     #[inline(always)]
     pub fn _1000k(self) -> &'a mut W {
         self.variant(FREQ_A::_1000K)
     }
-    #[doc = "PDM_CLK = 32 MHz / 31 = 1.032 MHz"]
+    #[doc = "PDM_CLK = 1.031 MHz -> Sample rate = 16113.3 Hz"]
     #[inline(always)]
     pub fn default(self) -> &'a mut W {
         self.variant(FREQ_A::DEFAULT)
     }
-    #[doc = "PDM_CLK = 32 MHz / 30 = 1.067 MHz"]
+    #[doc = "PDM_CLK = 1.063 MHz -> Sample rate = 16601.6 Hz"]
     #[inline(always)]
     pub fn _1067k(self) -> &'a mut W {
         self.variant(FREQ_A::_1067K)
+    }
+    #[doc = "PDM_CLK = 1.500 MHz -> Sample rate = 23437.5 Hz"]
+    #[inline(always)]
+    pub fn _1500k(self) -> &'a mut W {
+        self.variant(FREQ_A::_1500K)
+    }
+    #[doc = "PDM_CLK = 2.000 MHz -> Sample rate = 31250.0 Hz"]
+    #[inline(always)]
+    pub fn _2000k(self) -> &'a mut W {
+        self.variant(FREQ_A::_2000K)
+    }
+    #[doc = "PDM_CLK = 4.000 MHz -> Sample rate = 62500.0 Hz"]
+    #[inline(always)]
+    pub fn _4000k(self) -> &'a mut W {
+        self.variant(FREQ_A::_4000K)
     }
 }
 impl R {
